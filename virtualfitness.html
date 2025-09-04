@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessFreaks - Virtual Fitness Coaching</title>
+    <meta name="description" content="Join FitnessFreaks for expert virtual fitness coaching, online personal training, yoga, HIIT, nutrition guidance, and group classes. Transform your body and mind from anywhere!">
+    <meta name="keywords" content="virtual fitness coaching, online personal trainer, home workouts, yoga classes online, HIIT training, nutrition guidance, weight loss, muscle gain, fitness classes, Mumbai fitness, fitness community, group workouts, meditation online, fitness transformation">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .welcome-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .welcome-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .enter-btn {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .enter-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* Main Website */
+        .main-website {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #667eea;
+        }
+
+        /* HOME SECTION */
+        #home {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .home-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .home-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #764ba2;
+        }
+
+        .home-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .home-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .image-placeholder {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 200px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ABOUT SECTION */
+        #about {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4f1d4 100%);
+        }
+
+        .coaches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .coach-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .coach-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .coach-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        /* CONTACT SECTION */
+        #contact {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+        }
+
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* TESTIMONIALS SECTION */
+        #testimonials {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        /* SERVICES SECTION */
+        #services {
+            background: linear-gradient(135deg, #e8f8f5 0%, #d6edf7 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(90deg, #667eea, #764ba2);
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .home-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <h1>🏋️ FitnessFreaks</h1>
+            <p>Transform Your Body, Transform Your Life</p>
+            <button class="enter-btn" onclick="enterWebsite()">Explore ,Here</button>
+        </div>
+    </div>
+
+    <!-- Main Website -->
+    <div class="main-website" id="mainWebsite">
+        <!-- Header -->
+        <header>
+            <nav>
+                <div class="logo">🏋️ FitnessFreaks</div>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a onclick="showSection('home')" class="active">Home</a></li>
+                    <li><a onclick="showSection('about')">About</a></li>
+                    <li><a onclick="showSection('contact')">Contact</a></li>
+                    <li><a onclick="showSection('testimonials')">Testimonials</a></li>
+                    <li><a onclick="showSection('services')">Services</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- HOME SECTION -->
+            <section id="home" class="section active">
+                <div class="container">
+                    <h2>🏠 Welcome to FitnessFreaks</h2>
+                    
+                    <div class="home-content">
+                        <div class="home-text">
+                            <h3>🚀 Our Journey Started in 2020</h3>
+                            <p>FitnessFreaks began as a passion project during the pandemic when traditional gyms were closed. Our founder, recognizing the need for accessible fitness coaching, started conducting virtual sessions from a small home studio.</p>
+                            
+                            <h3>📍 Location & Reach</h3>
+                            <p>Based in the heart of Mumbai, Maharashtra, we now serve clients globally through our virtual platform. Our online coaching center connects fitness enthusiasts from different time zones, making quality fitness guidance accessible 24/7.</p>
+                            
+                            <h3>💪 About Our Coaching Center</h3>
+                            <p>FitnessFreaks is more than just a virtual gym - we're a community of dedicated individuals committed to transforming lives through fitness. We combine cutting-edge technology with personalized coaching to deliver results that speak for themselves.</p>
+                        </div>
+                        <div class="home-images">
+                            <div class="image-placeholder">Virtual Training Sessions</div>
+                            <div class="image-placeholder">Modern Equipment</div>
+                            <div class="image-placeholder">Group Classes</div>
+                            <div class="image-placeholder">Personal Coaching</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="section">
+                <div class="container">
+                    <h2>👥 Meet Our Expert Coaches</h2>
+                    <div class="coaches-grid">
+                        <div class="coach-card">
+                            <div class="coach-avatar">AS</div>
+                            <h3>Arjun Sharma</h3>
+                            <h4>Head Coach & Founder</h4>
+                            <p><strong>Experience:</strong> 8+ years in fitness industry</p>
+                            <p><strong>Specialization:</strong> Weight Training, Strength Conditioning, Bodybuilding</p>
+                            <p><strong>Certifications:</strong> ACSM Certified Personal Trainer, Nutrition Specialist</p>
+                            <p>Arjun started his fitness journey after overcoming obesity in college. His transformation inspired him to help others achieve their fitness goals. He has successfully trained over 500+ clients.</p>
+                        </div>
+                        
+                        <div class="coach-card">
+                            <div class="coach-avatar">PK</div>
+                            <h3>Priya Kapoor</h3>
+                            <h4>Yoga & Flexibility Coach</h4>
+                            <p><strong>Experience:</strong> 6+ years in yoga and wellness</p>
+                            <p><strong>Specialization:</strong> Hatha Yoga, Vinyasa Flow, Meditation</p>
+                            <p><strong>Certifications:</strong> RYT-500, Meditation Instructor</p>
+                            <p>Priya brings mindfulness to fitness with her expertise in yoga and meditation. She helps clients find balance between physical strength and mental wellness.</p>
+                        </div>
+                        
+                        <div class="coach-card">
+                            <div class="coach-avatar">RG</div>
+                            <h3>Rahul Gupta</h3>
+                            <h4>HIIT & Cardio Specialist</h4>
+                            <p><strong>Experience:</strong> 5+ years in high-intensity training</p>
+                            <p><strong>Specialization:</strong> HIIT, Circuit Training, Fat Loss</p>
+                            <p><strong>Certifications:</strong> NASM-CPT, TRX Instructor</p>
+                            <p>Former athlete turned trainer, Rahul specializes in high-energy workouts that maximize results in minimum time. Perfect for busy professionals.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="section">
+                <div class="container">
+                    <h2>📞 Get in Touch</h2>
+                    <form class="contact-form" onsubmit="submitForm(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile">Mobile Number *</label>
+                                <input type="tel" id="mobile" name="mobile" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="purpose">Purpose to Visit Website *</label>
+                                <select id="purpose" name="purpose" required>
+                                    <option value="">Select Purpose</option>
+                                    <option value="weight-loss">Weight Loss</option>
+                                    <option value="muscle-gain">Muscle Gain</option>
+                                    <option value="general-fitness">General Fitness</option>
+                                    <option value="sports-training">Sports Training</option>
+                                    <option value="rehabilitation">Rehabilitation</option>
+                                    <option value="nutrition-guidance">Nutrition Guidance</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Additional Message</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell us about your fitness goals..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="submit-btn">Submit Inquiry</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TESTIMONIALS SECTION -->
+            <section id="testimonials" class="section">
+                <div class="container">
+                    <h2>⭐ What Our Clients Say</h2>
+                    <div class="testimonials-grid">
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"I lost 15kg in 6 months with FitnessFreaks! The virtual sessions are so convenient, and Arjun's guidance was incredible. I never thought I could achieve this transformation from home."</p>
+                            <p class="testimonial-author">- Sneha Patel, Software Engineer</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"Priya's yoga sessions helped me manage my stress and improved my flexibility dramatically. The mindfulness approach has changed my relationship with fitness completely."</p>
+                            <p class="testimonial-author">- Vikram Singh, Business Owner</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"The HIIT sessions with Rahul are intense but effective! I gained muscle and lost fat simultaneously. The nutrition guidance was a game-changer for me."</p>
+                            <p class="testimonial-author">- Meera Joshi, Marketing Manager</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"Being a working mom, I couldn't go to regular gyms. FitnessFreaks virtual training fits perfectly into my schedule. I'm stronger and more confident now!"</p>
+                            <p class="testimonial-author">- Anjali Reddy, Teacher</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"The personalized approach and constant motivation kept me going. I completed my first marathon after training with them for 8 months. Highly recommended!"</p>
+                            <p class="testimonial-author">- Karan Mehta, IT Professional</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"Great community and support system. The group challenges and virtual events make fitness fun and engaging. It's more than just workouts - it's a lifestyle!"</p>
+                            <p class="testimonial-author">- Divya Kumar, Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES SECTION -->
+            <section id="services" class="section">
+                <div class="container">
+                    <h2>💪 Our Services</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🏋️</div>
+                            <h3>Personal Training</h3>
+                            <p>One-on-one virtual sessions tailored to your specific goals, fitness level, and schedule. Get personalized attention and customized workout plans.</p>
+                            <ul style="text-align: left; margin-top: 1rem;">
+                                <li>Customized workout plans</li>
+                                <li>Real-time form correction</li>
+                                <li>Progress tracking</li>
+                                <li>Flexible scheduling</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">👥</div>
+                            <h3>Group Classes</h3>
+                            <p>Join our energetic group sessions and train with like-minded individuals. Choose from various class types including HIIT, yoga, and strength training.</p>
+                            <ul style="text-align: left; margin-top: 1rem;">
+                                <li>Multiple class timings</li>
+                                <li>Interactive group environment</li>
+                                <li>Cost-effective option</li>
+                                <li>Community support</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">🥗</div>
+                            <h3>Nutrition Guidance</h3>
+                            <p>Comprehensive nutrition planning and guidance to complement your fitness journey. Get meal plans, recipes, and dietary advice.</p>
+                            <ul style="text-align: left; margin-top: 1rem;">
+                                <li>Personalized meal plans</li>
+                                <li>Macro tracking</li>
+                                <li>Healthy recipe suggestions</li>
+                                <li>Supplement guidance</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">🧘</div>
+                            <h3>Yoga & Mindfulness</h3>
+                            <p>Combine physical fitness with mental wellness through our yoga and meditation sessions. Perfect for stress relief and flexibility improvement.</p>
+                            <ul style="text-align: left; margin-top: 1rem;">
+                                <li>Various yoga styles</li>
+                                <li>Meditation sessions</li>
+                                <li>Breathing techniques</li>
+                                <li>Stress management</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">⚡</div>
+                            <h3>HIIT Training</h3>
+                            <p>High-Intensity Interval Training sessions designed to maximize calorie burn and improve cardiovascular health in shorter timeframes.</p>
+                            <ul style="text-align: left; margin-top: 1rem;">
+                                <li>Time-efficient workouts</li>
+                                <li>Fat burning focused</li>
+                                <li>No equipment needed</li>
+                                <li>Various intensity levels</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">🎯</div>
+                            <h3>Specialized Programs</h3>
+                            <p>Targeted programs for specific goals like weight loss, muscle building, athletic performance, or rehabilitation support.</p>
+                            <ul style="text-align: left; margin-top: 1rem;">
+                                <li>Goal-specific training</li>
+                                <li>Athletic performance</li>
+                                <li>Injury rehabilitation</li>
+                                <li>Senior fitness programs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function enterWebsite() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const mainWebsite = document.getElementById('mainWebsite');
+            
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                mainWebsite.style.opacity = '1';
+            }, 500);
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find the clicked link and make it active
+            const clickedLink = Array.from(navLinks).find(link => 
+                link.getAttribute('onclick').includes(sectionId)
+            );
+            if (clickedLink) {
+                clickedLink.classList.add('active');
+            }
+
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Simulate form submission
+            alert('Thank you for your inquiry! We will get back to you within 24 hours.');
+            
+            // Reset form
+            event.target.reset();
+            
+            console.log('Form submitted with data:', data);
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('nav');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('FitnessFreaks website loaded successfully!');
+        });
+    </script>
+</body>
+>>>>>>> 759fae3f4dedbec75ea0e28b95b1b940cc94d32e
+</html>
